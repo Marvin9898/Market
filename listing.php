@@ -130,17 +130,74 @@ echo "       \n";
 
  
 ?>
+</br>
+
+<form method="post">
+<div class="row">
+<div class="col-md-9">
+<input type="text" name="input" class="form-control" placeholder="Search">
+</div>
+<div class="col-md-3">
+<input type="submit" name="search" class="btn btn-info" value="search">
+</div>
+</div>
+</form>
+
+<?php
+$database_name = "market";
+$con = mysqli_connect("localhost","root","",$database_name);
+if(isset($_POST['search'])){
+	$input = $_POST['input'];
+	
+	if(!empty($input)){
+		$query = "SELECT * FROM product WHERE pname LIKE '%$input%'";
+		
+		$result = mysqli_query($con,$query);
+		
+		$count = mysqli_num_rows($result);
+		
+		if($count>0){
+			while($row = mysqli_fetch_assoc($result)){
+				$id = $row['id'];
+				$image = $row['image'];
+				$pname = $row['pname'];
+				$price = $row['price'];
+				
+				?>
+				
+				<div class="col-md-3">
+				
+                    
+                        <div class="featured__item__pic set-bg"><a href="productlisting.php?id=<?php echo $row["id"]; ?>"><p style="text-align:center;"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($row['image'] ).'" height="200" width="200" style="margin-top: 20px;"  />';  ?></a></p>  
+                        </div>
+						<div class="product"
+                            <h2><a href="productlisting.php?id=<?php echo $row["id"]; ?>"><?php echo $row["pname"]; ?></a></h2>
+                            <h5>RM<?php echo $row["price"]; ?></h5>
+						
+                        
+                    
+					</div>
+		<?php	
+		}
+			
+		
+                            
+                            
+	}else{
+		echo "no record found";
+	}
+}
+	}
+	
+	?>
 
 
- 
- 
  <?php
  if(isset($_SESSION['s_username'])){
-	
-    $database_name = "market";
-    $con = mysqli_connect("localhost","root","",$database_name);
             $query = "SELECT * FROM product ORDER BY id ASC ";
             $result = mysqli_query($con,$query);
+			$a = $con->query($query);
+			$load = mysqli_fetch_array($a);
             if (mysqli_num_rows($result) > 0) {
 				while ($row = mysqli_fetch_array($result)) {
 					 
@@ -149,20 +206,28 @@ echo "       \n";
 	   
         
 
-            
+                <?php 
+				if(!isset($_POST['search'])){
+					
+					?>
                 <div class="col-md-3">
 				
                     
-                        <div class="featured__item__pic set-bg"><a href="productlisting.php?id=<?php echo $row["id"]; ?>"><p style="text-align:center;"><img style="margin-top: 20px;" width="200" height="200" src="<?php echo $row["image"]; ?>"></a></p>  
+                        <div class="featured__item__pic set-bg"><a href="productlisting.php?id=<?php echo $row["id"]; ?>"><p style="text-align:center;"><?php echo '<img src="data:image/jpeg;base64,'.base64_encode($row['image'] ).'" height="200" width="200" style="margin-top: 20px;"  />';  ?></a></p>  
                         </div>
 						<div class="product"
                             <h2><a href="productlisting.php?id=<?php echo $row["id"]; ?>"><?php echo $row["pname"]; ?></a></h2>
                             <h5>RM<?php echo $row["price"]; ?></h5>
-						</form>
+						
                         
                     
 					</div>
                 </div>
+				
+				<?php
+				}
+				
+				?>
 				
 				
 	
