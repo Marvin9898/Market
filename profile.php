@@ -81,7 +81,7 @@ echo "             \n";
 echo "             <span class=\"d-inline-block d-lg-none\"><a href=\"#\" class=\" site-menu-toggle js-menu-toggle py-5 \"><span class=\"icon-menu h3 text-black\"></span></a></span>\n";
 echo "              <nav class=\"site-navigation text-right ml-auto d-none d-lg-block\" role=\"navigation\">\n";
 echo "               <ul class=\"site-menu main-menu js-clone-nav ml-auto \">\n";
-echo "                 <li style=\"font-weight: bold;\"  class=\"active\"><a href=\"index.php\"  class=\"nav-link\">Home</a></li>\n";
+echo "                 <li style=\"font-weight: bold;\"><a href=\"index.php\"  class=\"nav-link\">Home</a></li>\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"listing.php\"  class=\"nav-link\">Product</a></li>\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"signup.php\"  class=\"nav-link\">Sign Up</a></li>\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"contact.php\"  class=\"nav-link\">Contact</a></li>\n";
@@ -141,17 +141,26 @@ echo "       </div>\n";
 echo "     </div>\n";
 ?>
 <?php $dbc = mysqli_connect('localhost', 'root', '', 'market');?>
-<div class="container" style="width: 50%;">
+<div class="container" style="width: 75%;">
                               
         <h2 style="margin-left: 40%;">Profile</h2>
         <br><br><br><br>
         <div class="tab">
             <button class="tablinks" style="width: 33%" onclick="openCity(event, 'Personel Details')">Personal Details</button>
+			<button class="tablinks" style="width: 33%" onclick="openCity(event, 'Purchase History')">Purchase History</button>
             <button class="tablinks" style="width: 33%"  onclick="openCity(event, 'Edit Details')">Edit Details</button>
+			</br>
+			<?php 
+			if ($_SESSION['s_email'] == "marvinlimyumin@hotmail.com"){ ?>
+			<button class="tablinks" style="width: 33%"  onclick="openCity(event, 'Add Product')">Add Product</button>
+			<?php } ?>
         </div>
-
+		
+		<br><br><br>
+ 
 
         <div id="Personel Details" class="tabcontent">
+		<h3>Personal Details</h3>
            <!-- <?php echo $_SESSION['s_id'];?> -->
           <br>
           <?php
@@ -203,6 +212,40 @@ echo "     </div>\n";
         </div>
 		
 		
+		<div id="Purchase History" class="tabcontent">
+          <h3>Purchase History</h3>
+          <?php
+
+          $query = "SELECT * FROM orders where orders.id = $curr_user_id";
+
+          $select_user_orders = mysqli_query($dbc, $query);
+
+          while ($row = mysqli_fetch_assoc($select_user_orders)) {
+            $date = $row['date'];
+            $order_id = $row['order_id'];
+			$total = $row['total'];
+            
+            
+            ?>
+            <br>
+            <table class="table table-striped" style="width: 50%">
+              <tbody>
+                <tr>
+                  <td><b>Order ID</b> </td>
+                  <td><?php echo $order_id; ?></td>
+                </tr>
+                <tr>
+                  <td><b>Total Amount: </b> </td>
+                  <td>RM <?php echo $total; ?></td>
+                </tr>
+                <tr>
+                  <td><b>Date of Purchase: </b></td>
+                  <td><?php echo $date; ?></td>
+                </tr>
+              </tbody>
+            </table>
+
+          <?php  } ?>
 
         
 
@@ -214,6 +257,8 @@ echo "     </div>\n";
             
 		  
 		  </div>
+		  
+		  <br>
 
         <div id="Edit Details" class="tabcontent">
           <h3>Edit Details</h3>
@@ -251,9 +296,9 @@ echo "     </div>\n";
               
               
               
-              $update_bus = mysqli_query($dbc,$query);
+              $update_detail = mysqli_query($dbc,$query);
 
-              if (!$update_bus) {
+              if (!$update_detail) {
                 die("Query Failed" . mysqli_error($dbc));
               }
        
@@ -311,8 +356,40 @@ echo "     </div>\n";
 
 
         </div>
+		
+		<?php if ($_SESSION['s_email'] == "marvinlimyumin@hotmail.com"){?>
+		<div id="Add Product" class="tabcontent">
+		
+		
+          <h3>Add Product</h3>
+          <br>
+          
+			
+			<form action="product_add.php" method="post" enctype="multipart/form-data">
+              
+              <div class="form-group">
+                <label for="Product Name">Product Name</label>
+                <input type="text" class="form-control" name="pname">
+              </div>
+
+              <div class="form-group">
+                <label for="Price">Price(RM)</label>
+                <input type="number" class="form-control" step="any" name="price">
+              </div>
+			  
+			   <input type="file" name="image" id="image" />  
+
+              
+
+              </br></br>
+
+              <div class="form-group">
+                <input type="submit" class="btn btn-primary" name="insert">
+              </div>
+            </form>
 
     </div>
+		<?php } ?>
         <hr>
 		
 		<script>

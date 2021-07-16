@@ -53,7 +53,7 @@ echo "             <span class=\"d-inline-block d-lg-none\"><a href=\"#\" class=
 echo "              <nav class=\"site-navigation text-right ml-auto d-none d-lg-block\" role=\"navigation\">\n";
 echo "               <ul class=\"site-menu main-menu js-clone-nav ml-auto \">\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"index.php\"  class=\"nav-link\">Home</a></li>\n";
-echo "                 <li style=\"font-weight: bold;\" class=\"active\"><a href=\"listing.php\"  class=\"nav-link\">Product</a></li>\n";
+echo "                 <li style=\"font-weight: bold;\"><a href=\"listing.php\"  class=\"nav-link\">Product</a></li>\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"signup.php\"  class=\"nav-link\">Sign Up</a></li>\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"contact.php\"  class=\"nav-link\">Contact</a></li>\n";
 if (!isset($_SESSION['s_username'])) {
@@ -90,7 +90,7 @@ echo "         </div>\n";
 echo "       </div>\n";
 echo "      </header>\n";
 echo "      \n";
-echo "     <div class=\"hero inner-page\" style=\"background-image: url('images/product_detail_background.jpg');\">\n";
+echo "     <div class=\"hero inner-page\" style=\"background-image: url('images/thank_you_banner.jpg');\">\n";
 echo "       \n";
 echo "       <div class=\"container\">\n";
 echo "         <div class=\"row align-items-end \">\n";
@@ -110,58 +110,116 @@ echo "       </div>\n";
 echo "     </div>\n";
 ?>
 
-<?php
-$dbc = mysqli_connect('localhost', 'root', '', 'market');
-if (isset($_GET['id']))
-{
-    $selected_product = $_GET['id'];
-}
-
-$query = "SELECT *  FROM  product WHERE id = $selected_product ";
-
-$select_all_product_query = mysqli_query($dbc, $query);
-
-while ($row = mysqli_fetch_assoc($select_all_product_query))
-{
-    
+<?php	
+    $database_name = "market";
+    $con = mysqli_connect("localhost","root","",$database_name);
+	if (isset($_SESSION['s_id']))
+    {
+		if (isset($_GET['checkout']))	
+        {
+			$user_id = $_SESSION['s_id'];
+			$email = $_SESSION['s_email'];
+			$total = $_GET['hidden_total'];
+			
+			$query = "INSERT INTO orders(id , email, total , date) VALUES($user_id, '$email', '$total', now())";
+			
+			
+			$checkout_query = mysqli_query($con, $query);
+			
+			unset($_SESSION["cart"]);
+			
+			
+                
+				
+		}
+	}
 ?>
 
+<table class="table table-bordered">
+            <tr>
+                <th class="text-center">Thank you for shopping with us.</th>
+            </tr>
+			
+			
+			<?php $dbc = mysqli_connect('localhost', 'root', '', 'market');?>
+			<?php
+          $curr_user_id = $_SESSION['s_id'];
+          
+          $query = "SELECT * FROM users where id = $curr_user_id";
 
-    <section class="product-details spad">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6 col-md-6">
-                    <div class="product__details__pic">
-                        <div class="product__details__pic__item">
-                                <?php echo '<img src="data:image/jpeg;base64,'.base64_encode($row['image'] ).'" style="margin-top: 20px;" class="product__details__pic__item--large" />';  ?>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6">
-                    <div class="product__details__text">
-                        <h3><?php echo $row["pname"]; ?></h3>
-                        <div class="product__details__price">RM<?php echo $row["price"]; ?></div>
-						<form method="post" action="Cart.php?action=add&id=<?php echo $row["id"]; ?>">
-                            <div class="quantity">                   
-                                   <input type="text" name="quantity" size="17" width="20" value='1'>
-                            </div>
-                                <input type="hidden" name="hidden_name" value="<?php echo $row["pname"]; ?>">
-                                <input type="hidden" name="hidden_price" value="<?php echo $row["price"]; ?>">
-                                <input type="submit"  class='primary-btn' name="add" style="margin-top: 5px;"
-                                       value="Add to Cart">
-						        </form>
-									   
-                    </div>
-                </div>
-			<div>
-        </div>
-    </section>
-<?php
-}
-?>
+          $select_user = mysqli_query($dbc, $query);
 
+          while ($row = mysqli_fetch_assoc($select_user)) {
+            $Username = $row['Username'];
+            $First_name = $row['First_name'];
+            $Last_name = $row['Last_name'];
+            $Email = $row['Email'];
+			$Address = $row['Address'];
+            $Phone_no = $row['Phone_no'];
+            ?>
 
-    <script src="js/jquery-3.3.1.min.js"></script>
+            <table class="table table-striped" style="width: 100%">
+              <tbody>
+                <tr>
+                  <td><b>Username:</b> </td>
+                  <td><?php echo $Username; ?></td>
+                </tr>
+                <tr>
+                  <td><b>FirstName:</b> </td>
+                  <td><?php echo ucfirst($First_name); ?></td>
+                </tr>
+                <tr>
+                  <td><b>Lastname: </b></td>
+                  <td><?php echo ucfirst($Last_name); ?></td>
+                </tr>
+                <tr>
+                  <td><b>Email: </b></td>
+                  <td><?php echo $Email ; ?></td>
+                </tr>
+				<tr>
+                  <td><b>Address: </b></td>
+                  <td><?php echo $Address ; ?></td>
+                </tr>
+                <tr>
+                  <td><b>Phone No: </b></td>
+                  <td><?php echo $Phone_no; ?></td>
+                </tr>
+				<tr>
+                  <td><b>Total: </b></td>
+                  <td>RM <?php echo $total; ?></td>
+                </tr>
+              </tbody>
+            </table>
+
+          <?php } ?>
+		  
+		  <?php
+echo"<footer class='footer spad'>";
+        echo"<div class='container'>";
+            echo"<div class='row'>";
+                echo"<div class='col-lg-3 col-md-6 col-sm-6'>";
+                    echo"<div class='footer__about'>";
+                        echo"<div class='footer__about__logo'>";
+                            echo"<a href='./index.php'><img src='images/Logo.png' alt=''></a>";
+                        echo"</div>";
+                        echo"<ul>";
+                            echo"<li>Address:VO3-11-19, Designer Office (VO3), Lingkaran SV, Sunway Velocity, 55100 Kuala Lumpur.</li>";
+                            echo"<li>Phone:+603 2027 4626</li>";
+                            echo"<li>Email:journeymarket@gmail.com</li>";
+                        echo"</ul>";
+                    echo"</div>";
+                echo"</div>";
+            echo"</div>";
+            echo"<div class='row'>";
+                echo"<div class='col-lg-12'>";
+                    echo"</div>";
+                echo"</div>";
+            echo"</div>";
+        echo"</div>";
+    echo"</footer>";
+	?>
+	
+	<script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
@@ -174,6 +232,9 @@ while ($row = mysqli_fetch_assoc($select_all_product_query))
     <script src="js/aos.js"></script>
 
     <script src="js/main.js"></script>
-</body>
+
+  </body>
+
 </html>
-	
+</html>
+			

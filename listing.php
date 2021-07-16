@@ -59,7 +59,7 @@ echo "        <div class=\"container\">\n";
 echo "         <div class=\"row align-items-center position-relative\">\n";
 echo "            <div class=\"col-3\">\n";
 echo "             <div class=\"site-logo\">\n";
-echo "               <a href=\"index.html\"><strong>Journey Market</strong></a>\n";
+echo "               <a href=\"index.php\"><strong>Journey Market</strong></a>\n";
 echo "             </div>\n";
 echo "           </div>\n";
 echo "            <div class=\"col-9  text-right\">\n";
@@ -112,7 +112,7 @@ echo "         <div class=\"row align-items-end \">\n";
 echo "           <div class=\"col-lg-5\">\n";
 echo "              <div class=\"intro\">\n";
 echo "               <h1><strong>Product</strong></h1>\n";
-echo "               <div class=\"custom-breadcrumbs\"><a href=\"index.html\"><strong>Home</strong></a> <span class=\"mx-2\">/</span> <strong>Product</strong></div>\n";
+echo "               <div class=\"custom-breadcrumbs\"><a href=\"index.php\"><strong>Home</strong></a> <span class=\"mx-2\">/</span> <strong>Product</strong></div>\n";
 echo "             </div>\n";
 echo "            </div>\n";
 echo "         </div>\n";
@@ -132,16 +132,22 @@ echo "       \n";
 ?>
 </br>
 
-<form method="post">
-<div class="row">
-<div class="col-md-9">
-<input type="text" name="input" class="form-control" placeholder="Search">
-</div>
-<div class="col-md-3">
-<input type="submit" name="search" class="btn btn-info" value="search">
-</div>
-</div>
-</form>
+<?php
+if(isset($_SESSION['s_username'])){
+echo "<form method=\"post\">\n";
+echo "<div class=\"row\">\n";
+echo "<div class=\"col-md-9\">\n";
+echo "<input type=\"text\" name=\"input\" class=\"form-control\" placeholder=\"Search\">\n";
+echo "</div>\n";
+echo "<div class=\"col-md-3\">\n";
+echo "<input type=\"submit\" name=\"search\" class=\"btn btn-info\" value=\"search\">\n";
+echo "</div>\n";
+echo "</div>\n";
+echo "</form>";
+}
+
+?>
+
 
 <?php
 $database_name = "market";

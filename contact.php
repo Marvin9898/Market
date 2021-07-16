@@ -97,7 +97,7 @@ echo "         <div class=\"row align-items-end \">\n";
 echo "           <div class=\"col-lg-5\">\n";
 echo "              <div class=\"intro\">\n";
 echo "               <h1><strong>Contact Us</strong></h1>\n";
-echo "               <div class=\"custom-breadcrumbs\"><a href=\"index.html\">Home</a> <span class=\"mx-2\">/</span> <strong>Contact Us</strong></div>\n";
+echo "               <div class=\"custom-breadcrumbs\"><a href=\"index.php\">Home</a> <span class=\"mx-2\">/</span> <strong>Contact Us</strong></div>\n";
 echo "             </div>\n";
 echo "            </div>\n";
 echo "         </div>\n";

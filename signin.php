@@ -1,7 +1,10 @@
+<!doctype html>
 <html lang="en">
 
+
+
   <head>
-    <title>Journey Market</title>
+    <title> Journey Market </title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
@@ -19,14 +22,16 @@
 
     <!-- MAIN CSS -->
     <link rel="stylesheet" href="css/style.css">
-
+	<link rel="stylesheet" href="css/style1.css">
+     
   </head>
 
   <body>
-  
-  
+
+    
 <?php
 error_reporting(0);
+session_start();
 echo "<div class=\"site-wrap\" id=\"home-section\">\n";
 echo "      <div class=\"site-mobile-menu site-navbar-target\">\n";
 echo "       <div class=\"site-mobile-menu-header\">\n";
@@ -42,7 +47,7 @@ echo "        <div class=\"container\">\n";
 echo "         <div class=\"row align-items-center position-relative\">\n";
 echo "            <div class=\"col-3\">\n";
 echo "             <div class=\"site-logo\">\n";
-echo "               <a href=\"index.html\"><strong>Journey Market</strong></a>\n";
+echo "               <a href=\"index.php\"><strong>Journey Market</strong></a>\n";
 echo "             </div>\n";
 echo "           </div>\n";
 echo "            <div class=\"col-9  text-right\">\n";
@@ -50,11 +55,10 @@ echo "             \n";
 echo "             <span class=\"d-inline-block d-lg-none\"><a href=\"#\" class=\" site-menu-toggle js-menu-toggle py-5 \"><span class=\"icon-menu h3 text-black\"></span></a></span>\n";
 echo "              <nav class=\"site-navigation text-right ml-auto d-none d-lg-block\" role=\"navigation\">\n";
 echo "               <ul class=\"site-menu main-menu js-clone-nav ml-auto \">\n";
-echo "                 <li><a href=\"index.php\" class=\"nav-link\">Home</a></li>\n";
-echo "                 <li><a href=\"listing.php\" class=\"nav-link\">Listing</a></li>\n";
-echo "                 <li><a href=\"signup.php\" class=\"nav-link\">Sign Up</a></li>\n";
-echo "                 <li><a href=\"customerfeedback.php\" class=\"nav-link\">Customer Feedback</a></li>\n";
-echo "                 <li class=\"active\"><a href=\"contact.php\" class=\"nav-link\">Contact</a></li>\n";
+echo "                 <li style=\"font-weight: bold;\"><a href=\"index.php\" class=\"nav-link\">Home</a></li>\n";
+echo "                 <li style=\"font-weight: bold;\"><a href=\"listing.php\" class=\"nav-link\">Product</a></li>\n";
+echo "                 <li style=\"font-weight: bold;\" class=\"active\"><a href=\"signup.php\" class=\"nav-link\">Sign Up</a></li>\n";
+echo "                 <li style=\"font-weight: bold;\"><a href=\"contact.php\" class=\"nav-link\">Contact</a></li>\n";
 if (!isset($_SESSION['s_username'])) {
 echo "                  <form action=\"signin.php\" method=\"post\">";
 echo "                  <input type=\"text\" placeholder=\"Email\" name=\"email\">";
@@ -79,6 +83,7 @@ echo "                             <a href=\"logout.php\"><i class=\"fa fa-fw fa
 echo "                           </li>\n";
 echo "                               </ul>\n";
 echo "                           </li>\n";
+echo "                 <a href=\"cart.php\"><img src=\"images/cart.png\" alt=\"cart\" style=\"width:50px;height:50px;\"/></a>";
 }
 }
 echo "             </nav>\n";
@@ -94,8 +99,8 @@ echo "       <div class=\"container\">\n";
 echo "         <div class=\"row align-items-end \">\n";
 echo "           <div class=\"col-lg-5\">\n";
 echo "              <div class=\"intro\">\n";
-echo "               <h1><strong>About</strong></h1>\n";
-echo "               <div class=\"custom-breadcrumbs\"><a href=\"index.html\">Home</a> <span class=\"mx-2\">/</span> <strong>Sign Up</strong></div>\n";
+echo "               <h1><strong>Sign Up</strong></h1>\n";
+echo "               <div class=\"custom-breadcrumbs\"><a href=\"index.php\">Home</a> <span class=\"mx-2\">/</span> <strong>Sign Up</strong></div>\n";
 echo "             </div>\n";
 echo "            </div>\n";
 echo "         </div>\n";
@@ -173,22 +178,13 @@ echo "       </div>\n";
 echo "     </div>\n";
 echo "   </div>\n";
 echo "\n";
-echo "   <div class=\"site-section bg-primary py-5\">\n";
-echo "     <div class=\"container\">\n";
-echo "       <div class=\"row align-items-center\">\n";
-echo "         <div class=\"col-lg-7 mb-4 mb-md-0\">\n";
-echo "           <h2 class=\"mb-0 text-white\">What are you waiting for?</h2>\n";
-echo "           <p class=\"mb-0 opa-7\">Journey Market offers the largest selection of product. We do the shopping for you and delivery to your house as fast as we can. We provide the best service to the customer</p>\n";
-echo "         </div>\n";
-echo "         <div class=\"col-lg-5 text-md-right\">\n";
-echo "           <a href=\"index.php\" class=\"btn btn-primary btn-white\">Shop Now</a>\n";
-echo "         </div>\n";
-echo "       </div>\n";
-echo "     </div>\n";
-echo "   </div>\n";
+
 ?>
 
-<script src="js/jquery-3.3.1.min.js"></script>
+      
+      
+
+    <script src="js/jquery-3.3.1.min.js"></script>
     <script src="js/popper.min.js"></script>
     <script src="js/bootstrap.min.js"></script>
     <script src="js/owl.carousel.min.js"></script>
@@ -201,7 +197,6 @@ echo "   </div>\n";
     <script src="js/aos.js"></script>
 
     <script src="js/main.js"></script>
-
   </body>
 
 </html>

@@ -44,7 +44,7 @@ echo "        <div class=\"container\">\n";
 echo "         <div class=\"row align-items-center position-relative\">\n";
 echo "            <div class=\"col-3\">\n";
 echo "             <div class=\"site-logo\">\n";
-echo "               <a href=\"index.html\"><strong>Journey Market</strong></a>\n";
+echo "               <a href=\"index.php\"><strong>Journey Market</strong></a>\n";
 echo "             </div>\n";
 echo "           </div>\n";
 echo "            <div class=\"col-9  text-right\">\n";

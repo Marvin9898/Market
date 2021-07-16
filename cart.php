@@ -96,7 +96,7 @@ echo "             <span class=\"d-inline-block d-lg-none\"><a href=\"#\" class=
 echo "              <nav class=\"site-navigation text-right ml-auto d-none d-lg-block\" role=\"navigation\">\n";
 echo "               <ul class=\"site-menu main-menu js-clone-nav ml-auto \">\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"index.php\" class=\"nav-link\">Home</a></li>\n";
-echo "                 <li style=\"font-weight: bold;\" class=\"active\"><a href=\"listing.php\" class=\"nav-link\">Product</a></li>\n";
+echo "                 <li style=\"font-weight: bold;\"><a href=\"listing.php\" class=\"nav-link\">Product</a></li>\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"signup.php\" class=\"nav-link\">Sign Up</a></li>\n";
 echo "                 <li style=\"font-weight: bold;\"><a href=\"contact.php\" class=\"nav-link\">Contact</a></li>\n";
 if (!isset($_SESSION['s_username'])) {
@@ -193,7 +193,10 @@ echo "       \n";
                         <tr>
                             <td colspan="3" align="right">Total</td>
                             <th align="right">RM <?php echo number_format($total, 2); ?></th>
-                            <td></td>
+							<form action="checkout.php" method="get" class="form-horizontal">
+                            <td><button class="btn btn-primary" name="checkout" margin-top: "15px;">Check Out</button></td>
+							<input type="hidden" name="hidden_total" value="<?php echo $total ?>"> 
+							</form>
                         </tr>
                         <?php
                     }
