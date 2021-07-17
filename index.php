@@ -120,7 +120,7 @@ echo "             <div class=\"step\">\n";
 echo "               <span>2</span>\n";
 echo "               <div class=\"step-inner\">\n";
 echo "                 <span class=\"number text-primary\">02.</span>\n";
-echo "                 <h3>Add to the item cart</h3>\n";
+echo "                 <h3>Add item to the item cart</h3>\n";
 echo "                 <p>Select the type of product you want.</p>\n";
 echo "               </div>\n";
 echo "             </div>\n";
